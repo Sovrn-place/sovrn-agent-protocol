@@ -1,0 +1,294 @@
+{
+  "_comment": "EDGE / Procedure B — WATCH-2 long-chain probe (depth 10). See long-chain-3-links for the WATCH-2 rationale. Deepest probe; pins the scaling-shape invariant ceiling. Valid attenuated 10-link chain -> PERMIT.",
+  "credential": {
+    "@context": [
+      "https://www.w3.org/ns/credentials/v2",
+      "https://schema.sovrn.place/agent/v1"
+    ],
+    "id": "urn:uuid:00000000-0000-0000-0000-0000000000da",
+    "type": [
+      "VerifiableCredential",
+      "SovrnAgentCredential"
+    ],
+    "issuer": {
+      "id": "did:sovrn:zone:zone-a"
+    },
+    "validFrom": "2026-04-26T00:00:00Z",
+    "credentialSubject": {
+      "id": "did:sovrn:agent:link-10",
+      "agentType": "DELEGATED",
+      "principalDID": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "issuanceMethod": "ZONE_ISSUED"
+    },
+    "proof": [
+      {
+        "type": "DataIntegrityProof",
+        "cryptosuite": "eddsa-jcs-2022",
+        "proofValue": "z..."
+      }
+    ]
+  },
+  "delegationChain": [
+    {
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "aud": "did:sovrn:agent:link-1",
+        "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "exp": 1893456000,
+        "att": [
+          {
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": {
+              "maxValue": 10000
+            }
+          }
+        ],
+        "prf": []
+      }
+    },
+    {
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:agent:link-1",
+        "aud": "did:sovrn:agent:link-2",
+        "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "exp": 1893456000,
+        "att": [
+          {
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": {
+              "maxValue": 9000
+            }
+          }
+        ],
+        "prf": [
+          "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+        ]
+      }
+    },
+    {
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:agent:link-2",
+        "aud": "did:sovrn:agent:link-3",
+        "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "exp": 1893456000,
+        "att": [
+          {
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": {
+              "maxValue": 8000
+            }
+          }
+        ],
+        "prf": [
+          "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+        ]
+      }
+    },
+    {
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:agent:link-3",
+        "aud": "did:sovrn:agent:link-4",
+        "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "exp": 1893456000,
+        "att": [
+          {
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": {
+              "maxValue": 7000
+            }
+          }
+        ],
+        "prf": [
+          "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+        ]
+      }
+    },
+    {
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:agent:link-4",
+        "aud": "did:sovrn:agent:link-5",
+        "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "exp": 1893456000,
+        "att": [
+          {
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": {
+              "maxValue": 6000
+            }
+          }
+        ],
+        "prf": [
+          "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+        ]
+      }
+    },
+    {
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:agent:link-5",
+        "aud": "did:sovrn:agent:link-6",
+        "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "exp": 1893456000,
+        "att": [
+          {
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": {
+              "maxValue": 5000
+            }
+          }
+        ],
+        "prf": [
+          "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+        ]
+      }
+    },
+    {
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:agent:link-6",
+        "aud": "did:sovrn:agent:link-7",
+        "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "exp": 1893456000,
+        "att": [
+          {
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": {
+              "maxValue": 4000
+            }
+          }
+        ],
+        "prf": [
+          "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+        ]
+      }
+    },
+    {
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:agent:link-7",
+        "aud": "did:sovrn:agent:link-8",
+        "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "exp": 1893456000,
+        "att": [
+          {
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": {
+              "maxValue": 3000
+            }
+          }
+        ],
+        "prf": [
+          "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+        ]
+      }
+    },
+    {
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:agent:link-8",
+        "aud": "did:sovrn:agent:link-9",
+        "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "exp": 1893456000,
+        "att": [
+          {
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": {
+              "maxValue": 2000
+            }
+          }
+        ],
+        "prf": [
+          "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+        ]
+      }
+    },
+    {
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:agent:link-9",
+        "aud": "did:sovrn:agent:link-10",
+        "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "exp": 1893456000,
+        "att": [
+          {
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": {
+              "maxValue": 1000
+            }
+          }
+        ],
+        "prf": [
+          "sha256:9999999999999999999999999999999999999999999999999999999999999999"
+        ]
+      }
+    }
+  ],
+  "targetResource": "sovrn:zone:zone-a",
+  "_oracle": {
+    "didResolvable": true,
+    "signaturesValid": true,
+    "delegationExpired": false,
+    "chainInvariantViolated": false,
+    "resourceMismatch": false,
+    "crossLayerChainLinkRevoked": false,
+    "delegationRevoked": false,
+    "credentialRevoked": false,
+    "staleEmbeddedAuthority": false,
+    "rootPrincipalVerified": true
+  }
+}

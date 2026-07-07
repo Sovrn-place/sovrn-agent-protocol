@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.sovrn.place/agent/v1/agent-record.json",
+  "title": "SovrnAgentRecord",
+  "description": "Composite agent identity record combining identity, credentials, reputation, and delegation for the Sovrn protocol. Play Mode schema (open, Apache 2.0). This is an application-level aggregation, not a W3C VC. Individual credentials and reputation records within are VCs.",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "status": "DRAFT",
+  "type": "object",
+  "required": ["agentDID", "identity", "credentials"],
+  "properties": {
+    "agentDID": {
+      "type": "string",
+      "description": "Agent's Decentralized Identifier"
+    },
+    "identity": {
+      "type": "object",
+      "required": ["agentType", "principalDID", "publicKey", "registeredAt"],
+      "properties": {
+        "agentType": {
+          "type": "string",
+          "enum": ["AUTONOMOUS", "SUPERVISED", "DELEGATED"],
+          "description": "Agent operational mode"
+        },
+        "principalDID": {
+          "type": "string",
+          "description": "DID of the human principal who controls this agent"
+        },
+        "principalSiName": {
+          "type": "string",
+          "description": "Human principal's .si name"
+        },
+        "publicKey": {
+          "type": "string",
+          "description": "Ed25519 public key in multibase encoding"
+        },
+        "framework": {
+          "type": "string",
+          "description": "Agent framework identifier (opaque string)"
+        },
+        "version": {
+          "type": "string",
+          "description": "Agent software version (semver)"
+        },
+        "registeredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "erc8004TokenId": {
+          "type": "string",
+          "description": "On-chain ERC-8004 identity registry token ID (hex). Optional."
+        },
+        "serviceEndpoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["protocol", "endpoint"],
+            "properties": {
+              "protocol": {
+                "type": "string",
+                "enum": ["MCP", "A2A", "OID4VP", "OID4VCI", "REST", "WebSocket"],
+                "description": "Service protocol type"
+              },
+              "endpoint": {
+                "type": "string",
+                "format": "uri"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "credentials": {
+      "type": "array",
+      "items": {
+        "$ref": "agent-credential.v1.json"
+      },
+      "description": "Array of SovrnAgentCredential VCs held by this agent"
+    },
+    "reputation": {
+      "$ref": "../reputation/reputation-record.v1.json",
+      "description": "Current reputation record (SovrnReputationRecord VC)"
+    },
+    "delegations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["delegator", "capabilities", "expiration", "tokenHash"],
+        "properties": {
+          "delegator": {
+            "type": "string",
+            "description": "DID of the entity that delegated authority"
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["resource", "action"],
+              "properties": {
+                "resource": {
+                  "type": "string",
+                  "description": "UCAN resource URI (e.g., sovrn:zone:zone-a)"
+                },
+                "action": {
+                  "type": "string",
+                  "description": "UCAN action (e.g., residency/apply)"
+                },
+                "constraints": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "expiration": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tokenHash": {
+            "type": "string",
+            "pattern": "^(sha256|sha3-256|shake256):[a-f0-9]{64,128}$",
+            "description": "Cryptographic hash of the full UCAN JWT"
+          },
+          "chainDepth": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of delegation links from root principal (0 = direct delegation)"
+          }
+        }
+      },
+      "description": "Active UCAN delegation tokens granting this agent authority"
+    }
+  }
+}

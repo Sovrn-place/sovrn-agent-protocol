@@ -1,0 +1,17 @@
+{
+  "_comment": "EDGE / Procedure A — SHORT-CIRCUIT ORDERING (highest-value coverage). This bundle fails BOTH A1 (DID unresolvable) AND A2 (signature invalid). A conforming verifier MUST report the EARLIER failure: DID_UNRESOLVABLE, because A1 runs before A2. A verifier that runs checks out of order would report SIGNATURE_INVALID and fail this fixture. This is the only fixture that tests the algorithm's step ORDERING. Expected REJECT DID_UNRESOLVABLE.",
+  "credential": {
+    "@context": ["https://www.w3.org/ns/credentials/v2", "https://schema.sovrn.place/agent/v1"],
+    "id": "urn:uuid:00000000-0000-0000-0000-0000000000b1",
+    "type": ["VerifiableCredential", "SovrnAgentCredential"],
+    "issuer": { "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000" },
+    "validFrom": "2026-04-26T00:00:00Z",
+    "credentialSubject": {
+      "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+      "principalDID": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "issuanceMethod": "SELF_ATTESTED"
+    },
+    "proof": [{ "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "proofValue": "zTAMPERED..." }]
+  },
+  "_oracle": { "didResolvable": false, "signaturesValid": false }
+}

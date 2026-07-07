@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "sovrn-agent-protocol-reference": {
+      "command": "npx",
+      "args": ["tsx", "ABSOLUTE/PATH/TO/reference-implementations/mcp-server/src/index.ts", "--transport", "stdio"],
+      "env": {
+        "SOVRN_MCP_SERVER_DID": "did:sovrn:agent:reference-server",
+        "SOVRN_MCP_TRUSTED_ISSUERS": "did:sovrn:zone:zone-a",
+        "SOVRN_MCP_STATIC_DID_DOCS": "ABSOLUTE/PATH/TO/your-did-store.json",
+        "SOVRN_MCP_UCAN_GATE": "enforce"
+      }
+    }
+  }
+}

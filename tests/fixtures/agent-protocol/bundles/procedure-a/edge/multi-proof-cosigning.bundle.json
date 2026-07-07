@@ -1,0 +1,21 @@
+{
+  "_comment": "EDGE / Procedure A. Multi-proof co-signing (Layer 1 D3): proof[] has TWO entries — index 0 issuer, index 1 co-signer. verifySignatures checks EVERY entry (A2). This validates against agent-credential.locked.json (array proof), NOT the draft schema (single-object proof) — see JC-F2. Expected ACCEPT mode=GOV.",
+  "credential": {
+    "@context": ["https://www.w3.org/ns/credentials/v2", "https://schema.sovrn.place/agent/v1"],
+    "id": "urn:uuid:00000000-0000-0000-0000-0000000000ab",
+    "type": ["VerifiableCredential", "SovrnAgentCredential"],
+    "issuer": { "id": "did:sovrn:zone:zone-a", "name": "Zone A Authority" },
+    "validFrom": "2026-04-26T00:00:00Z",
+    "credentialSubject": {
+      "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+      "agentType": "SUPERVISED",
+      "principalDID": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "issuanceMethod": "COMMUNITY_ATTESTED"
+    },
+    "proof": [
+      { "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "verificationMethod": "did:sovrn:zone:zone-a#key-1", "proofPurpose": "assertionMethod", "proofValue": "zISSUER..." },
+      { "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "verificationMethod": "did:sovrn:zone:zone-b#key-1", "proofPurpose": "assertionMethod", "proofValue": "zCOSIGNER..." }
+    ]
+  },
+  "_oracle": { "didResolvable": true, "signaturesValid": true, "credentialRevoked": false, "mode": "GOV" }
+}

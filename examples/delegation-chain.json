@@ -1,0 +1,88 @@
+{
+  "_comment": "Three-level UCAN delegation chain demonstrating capability attenuation. Human principal delegates broad authority to a Personal Agent, which sub-delegates a narrow subset to a Specialist Agent. Each level can only narrow capabilities, never expand them.",
+  "delegations": [
+    {
+      "_comment": "Level 0: Human principal delegates to Personal Agent. Broadest scope.",
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "aud": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+        "sub": "did:sovrn:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "nbf": 1714089600,
+        "exp": 1745625600,
+        "att": [
+          {
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": { "maxValue": 10000 }
+          },
+          {
+            "with": "sovrn:zone:*",
+            "can": "documents/manage",
+            "constraints": {}
+          },
+          {
+            "with": "sovrn:wallet:principal",
+            "can": "payment/execute",
+            "constraints": { "maxPerTransaction": 5000, "maxPerMonth": 25000 }
+          }
+        ],
+        "fct": {
+          "sovrnDelegationType": "AGENT_AUTHORITY",
+          "principalIdentityLevel": "LEVEL_3",
+          "principalSiName": "example.si",
+          "delegationPurpose": "Full agent management of zone applications and payments"
+        },
+        "prf": []
+      }
+    },
+    {
+      "_comment": "Level 1: Personal Agent sub-delegates to Specialist Agent. Narrower scope: only zone-a residency, lower payment cap, no wildcard document access.",
+      "header": {
+        "alg": "EdDSA",
+        "typ": "JWT",
+        "ucv": "1.0.0"
+      },
+      "payload": {
+        "iss": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+        "aud": "did:sovrn:agent:660f9500-f39c-52e5-b827-557766551111",
+        "sub": "did:sovrn:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "nbf": 1714089600,
+        "exp": 1717286400,
+        "att": [
+          {
+            "_comment": "Attenuated: same zone, same action, but lower maxValue (5000 vs parent's 10000)",
+            "with": "sovrn:zone:zone-a",
+            "can": "residency/apply",
+            "constraints": { "maxValue": 5000 }
+          },
+          {
+            "_comment": "Attenuated: documents only in zone-a (parent had wildcard *)",
+            "with": "sovrn:zone:zone-a",
+            "can": "documents/manage",
+            "constraints": {}
+          },
+          {
+            "_comment": "Attenuated: lower payment caps (2500/tx and 10000/mo vs parent's 5000/tx and 25000/mo)",
+            "with": "sovrn:wallet:principal",
+            "can": "payment/execute",
+            "constraints": { "maxPerTransaction": 2500, "maxPerMonth": 10000 }
+          }
+        ],
+        "fct": {
+          "sovrnDelegationType": "AGENT_SUBDELEGATION",
+          "principalIdentityLevel": "LEVEL_3",
+          "delegationPurpose": "Specialist agent for zone-a residency applications"
+        },
+        "prf": ["sha256:a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"]
+      }
+    },
+    {
+      "_comment": "Verification chain: Human (LEVEL_3) -> Personal Agent (full scope) -> Specialist Agent (zone-a only, reduced caps). The prf array in level 1 references the hash of the level 0 token, proving the delegation chain is unbroken. A verifier checks: (1) level 1 capabilities are a subset of level 0, (2) level 0 was issued by the principal, (3) all signatures verify."
+    }
+  ]
+}

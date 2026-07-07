@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noUnusedLocals": false
+  },
+  "include": [
+    "src/**/*.ts",
+    "conformance/**/*.ts",
+    "../../tests/fixtures/agent-protocol/verifier-contract.ts",
+    "../../tests/fixtures/agent-protocol/mock-verifier.ts",
+    "../../tests/fixtures/agent-protocol/manifest.ts"
+  ]
+}

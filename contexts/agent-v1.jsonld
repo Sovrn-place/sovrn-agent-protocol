@@ -1,0 +1,69 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+    "sovrn": "https://schema.sovrn.place/agent/v1#",
+    "SovrnAgentCredential": {
+      "@id": "sovrn:SovrnAgentCredential",
+      "@context": {
+        "agentType": "sovrn:agentType",
+        "principalDID": { "@id": "sovrn:principalDID", "@type": "@id" },
+        "principalSiName": "sovrn:principalSiName",
+        "issuanceMethod": "sovrn:issuanceMethod",
+        "capabilities": {
+          "@id": "sovrn:capabilities",
+          "@container": "@set",
+          "@context": {
+            "action": "sovrn:action",
+            "jurisdictions": {
+              "@id": "sovrn:jurisdictions",
+              "@container": "@set"
+            },
+            "constraints": { "@id": "sovrn:constraints", "@type": "@json" }
+          }
+        },
+        "verificationStatus": {
+          "@id": "sovrn:verificationStatus",
+          "@context": {
+            "principalKYC": { "@id": "sovrn:principalKYC", "@type": "http://www.w3.org/2001/XMLSchema#boolean" },
+            "principalKYCTier": { "@id": "sovrn:principalKYCTier", "@type": "http://www.w3.org/2001/XMLSchema#integer" },
+            "agentCodeAudit": { "@id": "sovrn:agentCodeAudit", "@type": "http://www.w3.org/2001/XMLSchema#boolean" },
+            "agentBehaviorStatus": "sovrn:agentBehaviorStatus"
+          }
+        },
+        "credentialHash": "sovrn:credentialHash"
+      }
+    },
+    "UCANDelegation": {
+      "@id": "sovrn:UCANDelegation",
+      "@context": {
+        "ucanToken": "sovrn:ucanToken",
+        "delegator": { "@id": "sovrn:delegator", "@type": "@id" },
+        "delegate": { "@id": "sovrn:delegate", "@type": "@id" },
+        "capabilities": { "@id": "sovrn:delegationCapabilities", "@container": "@set" },
+        "expiration": { "@id": "sovrn:expiration", "@type": "http://www.w3.org/2001/XMLSchema#dateTime" }
+      }
+    },
+    "KYCAttestation": {
+      "@id": "sovrn:KYCAttestation",
+      "@context": {
+        "provider": "sovrn:provider",
+        "tier": { "@id": "sovrn:tier", "@type": "http://www.w3.org/2001/XMLSchema#integer" },
+        "attestedAt": { "@id": "sovrn:attestedAt", "@type": "http://www.w3.org/2001/XMLSchema#dateTime" },
+        "credentialHash": "sovrn:credentialHash"
+      }
+    },
+    "agentMetadata": {
+      "@id": "sovrn:agentMetadata",
+      "@context": {
+        "agentType": "sovrn:agentType",
+        "framework": "sovrn:framework",
+        "version": "sovrn:version",
+        "capabilities": { "@id": "sovrn:metadataCapabilities", "@container": "@set" },
+        "principalDID": { "@id": "sovrn:principalDID", "@type": "@id" },
+        "registeredAt": { "@id": "sovrn:registeredAt", "@type": "http://www.w3.org/2001/XMLSchema#dateTime" },
+        "erc8004TokenId": "sovrn:erc8004TokenId"
+      }
+    }
+  }
+}

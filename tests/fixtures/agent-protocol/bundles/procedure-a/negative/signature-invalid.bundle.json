@@ -1,0 +1,17 @@
+{
+  "_comment": "NEGATIVE / Procedure A. A2 fails: a proof[] entry does not verify (L1 §8.2 — verifySignatures checks every entry). Expected REJECT SIGNATURE_INVALID.",
+  "credential": {
+    "@context": ["https://www.w3.org/ns/credentials/v2", "https://schema.sovrn.place/agent/v1"],
+    "id": "urn:uuid:00000000-0000-0000-0000-0000000000a2",
+    "type": ["VerifiableCredential", "SovrnAgentCredential"],
+    "issuer": { "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000" },
+    "validFrom": "2026-04-26T00:00:00Z",
+    "credentialSubject": {
+      "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+      "principalDID": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "issuanceMethod": "SELF_ATTESTED"
+    },
+    "proof": [{ "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "proofValue": "zTAMPERED..." }]
+  },
+  "_oracle": { "didResolvable": true, "signaturesValid": false }
+}

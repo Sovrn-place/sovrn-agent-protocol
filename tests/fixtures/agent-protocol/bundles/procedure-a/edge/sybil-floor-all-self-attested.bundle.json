@@ -1,0 +1,20 @@
+{
+  "_comment": "EDGE / Procedure A. COMMUNITY_ATTESTED Sybil floor (Layer 1 §4.2 / D5): all co-signers are SELF_ATTESTED, so the effective trust floors to SELF_ATTESTED. This is enforced verifier-side via the A8 trust profile (guidance), not by issuance rejection. Expected ACCEPT mode=PLAY trustProfileDowngraded=true (floored). Two co-signer proofs, both from SELF_ATTESTED issuers.",
+  "credential": {
+    "@context": ["https://www.w3.org/ns/credentials/v2", "https://schema.sovrn.place/agent/v1"],
+    "id": "urn:uuid:00000000-0000-0000-0000-0000000000ac",
+    "type": ["VerifiableCredential", "SovrnAgentCredential"],
+    "issuer": { "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000" },
+    "validFrom": "2026-04-26T00:00:00Z",
+    "credentialSubject": {
+      "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+      "principalDID": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "issuanceMethod": "COMMUNITY_ATTESTED"
+    },
+    "proof": [
+      { "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "verificationMethod": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000#key-1", "proofValue": "zSELF1..." },
+      { "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "verificationMethod": "did:sovrn:agent:660f9500-f39c-52e5-b827-557766551111#key-1", "proofValue": "zSELF2..." }
+    ]
+  },
+  "_oracle": { "didResolvable": true, "signaturesValid": true, "credentialRevoked": false, "mode": "PLAY", "trustProfileThresholdMet": false }
+}

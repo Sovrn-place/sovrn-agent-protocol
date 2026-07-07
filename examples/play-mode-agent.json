@@ -1,0 +1,64 @@
+{
+  "_comment": "Play Mode agent credential. Self-issued by the agent, no zone authority attestation. This demonstrates the minimum viable credential for an agent operating in the open permissionless layer. Verifiers should treat SELF_ATTESTED credentials as identity signals, not trust signals.",
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://w3id.org/security/data-integrity/v2",
+    "https://schema.sovrn.place/credentials/v1",
+    "https://schema.sovrn.place/agent/v1"
+  ],
+  "id": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "type": ["VerifiableCredential", "SovrnAgentCredential"],
+  "issuer": {
+    "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+    "name": "Self-Issued (Play Mode)"
+  },
+  "validFrom": "2026-04-26T00:00:00Z",
+  "validUntil": "2027-04-26T00:00:00Z",
+  "credentialSubject": {
+    "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+    "agentType": "AUTONOMOUS",
+    "principalDID": "did:sovrn:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+    "principalSiName": "example.si",
+    "issuanceMethod": "SELF_ATTESTED",
+    "capabilities": [
+      {
+        "action": "APPLY_RESIDENCY",
+        "jurisdictions": ["zone-a"],
+        "constraints": {
+          "maxApplicationsPerMonth": 3
+        }
+      },
+      {
+        "action": "MANAGE_DOCUMENTS",
+        "jurisdictions": ["*"],
+        "constraints": {}
+      }
+    ],
+    "verificationStatus": {
+      "principalKYC": false,
+      "agentCodeAudit": false,
+      "agentBehaviorStatus": "UNVERIFIED"
+    },
+    "credentialHash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "evidence": [
+    {
+      "id": "urn:uuid:d1e2f3a4-b5c6-7890-1234-567890abcdef",
+      "type": "UCANDelegation",
+      "delegator": "did:sovrn:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "delegate": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+      "capabilities": ["sovrn:zone:zone-a/residency/apply", "sovrn:zone:*/documents/manage"],
+      "expiration": "2027-04-26T00:00:00Z"
+    }
+  ],
+  "proof": [
+    {
+      "type": "DataIntegrityProof",
+      "cryptosuite": "eddsa-jcs-2022",
+      "created": "2026-04-26T00:00:00Z",
+      "verificationMethod": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000#key-1",
+      "proofPurpose": "assertionMethod",
+      "proofValue": "z4oey5q2M3XKaxup3tmzN4DRFTLQe2..."
+    }
+  ]
+}

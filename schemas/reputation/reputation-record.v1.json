@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.sovrn.place/reputation/v1/reputation-record.json",
+  "title": "SovrnReputationRecord",
+  "description": "W3C VC 2.0 credential type for agent reputation. Time-bound, oracle-issued, with implementation-defined dimensions and tiers. Play Mode schema (open, Apache 2.0).",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "status": "DRAFT",
+  "type": "object",
+  "required": ["@context", "id", "type", "issuer", "validFrom", "validUntil", "credentialSubject"],
+  "properties": {
+    "@context": {
+      "type": "array",
+      "items": { "type": "string", "format": "uri" },
+      "contains": { "const": "https://www.w3.org/ns/credentials/v2" }
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "type": "array",
+      "items": { "type": "string" },
+      "contains": { "const": "VerifiableCredential" }
+    },
+    "issuer": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" }
+      }
+    },
+    "validFrom": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validUntil": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Reputation records are time-bound and re-issued periodically. Epoch duration is implementation-defined."
+    },
+    "credentialSubject": {
+      "type": "object",
+      "required": ["id", "compositeScore", "tier", "epochNumber"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Agent DID"
+        },
+        "compositeScore": {
+          "type": "number",
+          "description": "Aggregate reputation score. Range and computation are implementation-defined."
+        },
+        "tier": {
+          "type": "string",
+          "description": "Reputation tier label. Tier names, count, and thresholds are implementation-defined."
+        },
+        "dimensions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/dimensionScore" },
+          "description": "Reputation dimension breakdown. Dimension names, count, and weighting are implementation-defined."
+        },
+        "zoneScores": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["zone", "score", "actionsCompleted"],
+            "properties": {
+              "zone": { "type": "string", "description": "Zone federation identifier" },
+              "score": { "type": "number", "description": "Zone-scoped reputation score" },
+              "actionsCompleted": { "type": "integer", "minimum": 0 },
+              "activeFrom": { "type": "string", "format": "date-time" }
+            }
+          },
+          "description": "Per-zone reputation breakdown"
+        },
+        "flags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Compliance or operational flags. Flag values are implementation-defined."
+        },
+        "epochNumber": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Monotonically increasing epoch counter. Epoch duration is implementation-defined."
+        },
+        "computationMethod": {
+          "type": "string",
+          "description": "Opaque algorithm identifier for reproducibility (e.g., sovrn-reputation-v1)"
+        },
+        "computationHash": {
+          "type": "string",
+          "pattern": "^(sha256|sha3-256|shake256):[a-f0-9]{64,128}$",
+          "description": "Hash of the input data used to compute the score. Enables auditability without revealing raw signals."
+        },
+        "credentialHash": {
+          "type": "string",
+          "pattern": "^(sha256|sha3-256|shake256):[a-f0-9]{64,128}$",
+          "description": "Hash of the full credential content for integrity verification."
+        }
+      }
+    },
+    "proof": {
+      "type": "object",
+      "description": "W3C Data Integrity proof or external proof"
+    }
+  },
+  "$defs": {
+    "dimensionScore": {
+      "type": "object",
+      "required": ["name", "score"],
+      "properties": {
+        "name": { "type": "string", "description": "Implementation-defined dimension name" },
+        "score": { "type": "number", "description": "Dimension score. Range is implementation-defined." },
+        "sampleSize": { "type": "integer", "minimum": 0 },
+        "lastUpdated": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

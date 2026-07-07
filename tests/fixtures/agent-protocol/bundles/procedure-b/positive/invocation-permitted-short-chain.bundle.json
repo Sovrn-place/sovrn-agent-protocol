@@ -1,0 +1,32 @@
+{
+  "_comment": "POSITIVE / Procedure B. Well-formed 2-link UCAN delegation chain (root principal -> personal agent), valid invocation against the targeted resource. No failure hints -> PERMIT. Derived from examples/delegation-chain.json. Attenuation holds; invoker = terminal aud; root principal still verified.",
+  "credential": {
+    "@context": ["https://www.w3.org/ns/credentials/v2", "https://schema.sovrn.place/agent/v1"],
+    "id": "urn:uuid:00000000-0000-0000-0000-0000000000c0",
+    "type": ["VerifiableCredential", "SovrnAgentCredential"],
+    "issuer": { "id": "did:sovrn:zone:zone-a" },
+    "validFrom": "2026-04-26T00:00:00Z",
+    "credentialSubject": {
+      "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+      "agentType": "DELEGATED",
+      "principalDID": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "issuanceMethod": "ZONE_ISSUED"
+    },
+    "proof": [{ "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "proofValue": "z..." }]
+  },
+  "delegationChain": [
+    {
+      "header": { "alg": "EdDSA", "typ": "JWT", "ucv": "1.0.0" },
+      "payload": {
+        "iss": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "aud": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+        "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "nbf": 1714089600, "exp": 1893456000,
+        "att": [{ "with": "sovrn:zone:zone-a", "can": "residency/apply", "constraints": { "maxValue": 10000 } }],
+        "prf": []
+      }
+    }
+  ],
+  "targetResource": "sovrn:zone:zone-a",
+  "_oracle": { "didResolvable": true, "signaturesValid": true, "delegationExpired": false, "chainInvariantViolated": false, "resourceMismatch": false, "crossLayerChainLinkRevoked": false, "delegationRevoked": false, "credentialRevoked": false, "staleEmbeddedAuthority": false, "rootPrincipalVerified": true }
+}

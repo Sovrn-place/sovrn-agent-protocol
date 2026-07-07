@@ -1,0 +1,35 @@
+{
+  "_comment": "EDGE / Procedure A. Epoch boundary, INSIDE the overlap window: epoch N+1 was issued 24-48h before epoch N's validUntil; the presented reputation VC is past validUntil but inside the overlap window, so the verifier prefers the newer epoch and treats reputation as FRESH (L3 §6 / master §9.6). Expected ACCEPT mode=PLAY reputationStatus=FRESH. Pairs with the graded stale-epoch fixture (outside-window).",
+  "credential": {
+    "@context": ["https://www.w3.org/ns/credentials/v2", "https://schema.sovrn.place/agent/v1"],
+    "id": "urn:uuid:00000000-0000-0000-0000-0000000000aa",
+    "type": ["VerifiableCredential", "SovrnAgentCredential"],
+    "issuer": { "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000" },
+    "validFrom": "2026-04-26T00:00:00Z",
+    "credentialSubject": {
+      "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+      "principalDID": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "issuanceMethod": "SELF_ATTESTED"
+    },
+    "proof": [{ "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "proofValue": "z..." }]
+  },
+  "reputationVC": {
+    "@context": ["https://www.w3.org/ns/credentials/v2", "https://schema.sovrn.place/reputation/v1"],
+    "id": "urn:uuid:rep-0000-0000-0000-000000000002",
+    "type": ["VerifiableCredential", "SovrnReputationRecord"],
+    "issuer": { "id": "did:sovrn:zone:zone-a" },
+    "validFrom": "2026-03-01T00:00:00Z",
+    "validUntil": "2026-04-01T00:00:00Z",
+    "credentialSubject": {
+      "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+      "compositeScore": 55,
+      "tier": "opaque-tier-token-c",
+      "epochNumber": 12,
+      "computationMethod": "opaque-computation-id",
+      "computationHash": "sha256:c3d4e5f6a7b8c3d4e5f6a7b8c3d4e5f6a7b8c3d4e5f6a7b8c3d4e5f6a7b8c3d4",
+      "credentialHash": "sha256:d4e5f6a7b8c9d4e5f6a7b8c9d4e5f6a7b8c9d4e5f6a7b8c9d4e5f6a7b8c9d4e5"
+    },
+    "proof": { "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "proofValue": "z..." }
+  },
+  "_oracle": { "didResolvable": true, "signaturesValid": true, "credentialRevoked": false, "mode": "PLAY", "reputationPastValidUntil": true, "insideOverlapWindow": true }
+}

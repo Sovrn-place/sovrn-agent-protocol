@@ -1,0 +1,47 @@
+{
+  "_comment": "POSITIVE / Procedure A. Well-formed GOV-mode zone-issued credential. No failure hints -> ACCEPT mode=GOV. Derived from examples/gov-mode-agent.json. Proprietary govMode fields use opaque values (opaque-provider-id, LEVEL_2, tier integer).",
+  "credential": {
+    "@context": [
+      "https://www.w3.org/ns/credentials/v2",
+      "https://w3id.org/security/data-integrity/v2",
+      "https://schema.sovrn.place/credentials/v1",
+      "https://schema.sovrn.place/agent/v1"
+    ],
+    "id": "urn:uuid:b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "type": ["VerifiableCredential", "SovrnAgentCredential"],
+    "issuer": { "id": "did:sovrn:zone:zone-a", "name": "Zone A Authority" },
+    "validFrom": "2026-04-26T00:00:00Z",
+    "validUntil": "2027-04-26T00:00:00Z",
+    "credentialSubject": {
+      "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+      "agentType": "AUTONOMOUS",
+      "principalDID": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "principalType": "NATURAL",
+      "principalSiName": "example.si",
+      "issuanceMethod": "ZONE_ISSUED",
+      "capabilities": [
+        { "action": "APPLY_RESIDENCY", "jurisdictions": ["zone-a"], "constraints": { "maxApplicationsPerMonth": 10, "requiresApprovalAbove": 5000 } }
+      ],
+      "verificationStatus": { "principalKYC": true, "principalKYCTier": 2, "agentCodeAudit": true, "agentBehaviorStatus": "COMPLIANT" },
+      "credentialHash": "sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+    },
+    "credentialStatus": {
+      "id": "https://example.com/api/credentials/status/42",
+      "type": "BitstringStatusListEntry",
+      "statusPurpose": "revocation",
+      "statusListIndex": "42",
+      "statusListCredential": "https://example.com/api/credentials/status-list/1"
+    },
+    "proof": [
+      {
+        "type": "DataIntegrityProof",
+        "cryptosuite": "eddsa-jcs-2022",
+        "created": "2026-04-26T00:00:00Z",
+        "verificationMethod": "did:sovrn:zone:zone-a#key-1",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z5oey5q2M3XKaxup3tmzN4DRFTLQe2..."
+      }
+    ]
+  },
+  "_oracle": { "didResolvable": true, "signaturesValid": true, "credentialRevoked": false, "mode": "GOV" }
+}

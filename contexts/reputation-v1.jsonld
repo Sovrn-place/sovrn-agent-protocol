@@ -1,0 +1,39 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+    "sovrn": "https://schema.sovrn.place/reputation/v1#",
+    "SovrnReputationRecord": {
+      "@id": "sovrn:SovrnReputationRecord",
+      "@context": {
+        "compositeScore": { "@id": "sovrn:compositeScore", "@type": "http://www.w3.org/2001/XMLSchema#double" },
+        "tier": "sovrn:tier",
+        "dimensions": {
+          "@id": "sovrn:dimensions",
+          "@container": "@set",
+          "@context": {
+            "name": "sovrn:dimensionName",
+            "score": { "@id": "sovrn:dimensionScore", "@type": "http://www.w3.org/2001/XMLSchema#double" },
+            "sampleSize": { "@id": "sovrn:sampleSize", "@type": "http://www.w3.org/2001/XMLSchema#integer" },
+            "lastUpdated": { "@id": "sovrn:lastUpdated", "@type": "http://www.w3.org/2001/XMLSchema#dateTime" }
+          }
+        },
+        "zoneScores": {
+          "@id": "sovrn:zoneScores",
+          "@container": "@set",
+          "@context": {
+            "zone": "sovrn:zone",
+            "score": { "@id": "sovrn:zoneScore", "@type": "http://www.w3.org/2001/XMLSchema#double" },
+            "actionsCompleted": { "@id": "sovrn:actionsCompleted", "@type": "http://www.w3.org/2001/XMLSchema#integer" },
+            "activeFrom": { "@id": "sovrn:activeFrom", "@type": "http://www.w3.org/2001/XMLSchema#dateTime" }
+          }
+        },
+        "flags": { "@id": "sovrn:flags", "@container": "@set" },
+        "epochNumber": { "@id": "sovrn:epochNumber", "@type": "http://www.w3.org/2001/XMLSchema#integer" },
+        "computationMethod": "sovrn:computationMethod",
+        "computationHash": "sovrn:computationHash",
+        "credentialHash": "sovrn:credentialHash"
+      }
+    }
+  }
+}

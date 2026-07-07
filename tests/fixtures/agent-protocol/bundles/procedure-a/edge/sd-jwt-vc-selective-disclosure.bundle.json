@@ -1,0 +1,18 @@
+{
+  "_comment": "EDGE / Procedure A. SD-JWT-VC selective disclosure (Layer 1 D6): the disclosed presentation withholds principalDID and capabilities[].jurisdictions. This is the DISCLOSED-PRESENTATION shape, NOT the issued VC — the agent-credential schema models the issued VC (principalDID required), so this fixture is xfail-on-schema (JC-F2 / design doc §10). The verifier still ACCEPTs: the disclosed set is sufficient for standing. Expected ACCEPT mode=GOV.",
+  "credential": {
+    "@context": ["https://www.w3.org/ns/credentials/v2", "https://schema.sovrn.place/agent/v1"],
+    "id": "urn:uuid:00000000-0000-0000-0000-0000000000ad",
+    "type": ["VerifiableCredential", "SovrnAgentCredential"],
+    "issuer": { "id": "did:sovrn:zone:zone-a" },
+    "validFrom": "2026-04-26T00:00:00Z",
+    "credentialSubject": {
+      "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+      "agentType": "AUTONOMOUS",
+      "issuanceMethod": "ZONE_ISSUED",
+      "_sd": ["principalDID", "capabilities.jurisdictions"]
+    },
+    "proof": [{ "type": "SdJwtProof", "cryptosuite": "sd-jwt-vc", "proofValue": "z..." }]
+  },
+  "_oracle": { "didResolvable": true, "signaturesValid": true, "credentialRevoked": false, "mode": "GOV" }
+}

@@ -1,0 +1,7 @@
+{
+  "_comment": "EDGE / Procedure B — SHORT-CIRCUIT ORDERING. This bundle fails BOTH B1 (DID unresolvable) AND B4 (delegation expired). A conforming verifier MUST report the EARLIER failure: DID_UNRESOLVABLE, because B1 runs before B4. Tests the algorithm's step ORDERING at invocation time. Expected DENY DID_UNRESOLVABLE.",
+  "credential": { "@context": ["https://www.w3.org/ns/credentials/v2", "https://schema.sovrn.place/agent/v1"], "id": "urn:uuid:00000000-0000-0000-0000-0000000000db", "type": ["VerifiableCredential", "SovrnAgentCredential"], "issuer": { "id": "did:sovrn:zone:zone-a" }, "validFrom": "2026-04-26T00:00:00Z", "credentialSubject": { "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000", "principalDID": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7", "issuanceMethod": "ZONE_ISSUED" }, "proof": [{ "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "proofValue": "z..." }] },
+  "delegationChain": [{ "header": { "alg": "EdDSA", "typ": "JWT", "ucv": "1.0.0" }, "payload": { "iss": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7", "aud": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000", "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7", "exp": 1609459200, "att": [{ "with": "sovrn:zone:zone-a", "can": "residency/apply" }], "prf": [] } }],
+  "targetResource": "sovrn:zone:zone-a",
+  "_oracle": { "didResolvable": false, "delegationExpired": true }
+}

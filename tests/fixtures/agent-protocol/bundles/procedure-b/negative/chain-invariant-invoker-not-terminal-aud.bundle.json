@@ -1,0 +1,9 @@
+{
+  "_comment": "NEGATIVE / Procedure B. CHAIN_INVARIANT_VIOLATION sub-case (b): the invoker DID is not the aud of the terminal delegation (UCAN 1.0 Principal Alignment; L2 §5/§7.4 / DL6). The invoking agent (credentialSubject.id) differs from the terminal link's aud. Expected DENY CHAIN_INVARIANT_VIOLATION.",
+  "credential": { "@context": ["https://www.w3.org/ns/credentials/v2", "https://schema.sovrn.place/agent/v1"], "id": "urn:uuid:00000000-0000-0000-0000-0000000000c5", "type": ["VerifiableCredential", "SovrnAgentCredential"], "issuer": { "id": "did:sovrn:zone:zone-a" }, "validFrom": "2026-04-26T00:00:00Z", "credentialSubject": { "id": "did:sovrn:agent:aaa-invoker-not-the-terminal-aud", "agentType": "DELEGATED", "principalDID": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7", "issuanceMethod": "ZONE_ISSUED" }, "proof": [{ "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "proofValue": "z..." }] },
+  "delegationChain": [
+    { "header": { "alg": "EdDSA", "typ": "JWT", "ucv": "1.0.0" }, "payload": { "iss": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7", "aud": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000", "sub": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7", "exp": 1893456000, "att": [{ "with": "sovrn:zone:zone-a", "can": "residency/apply" }], "prf": [] } }
+  ],
+  "targetResource": "sovrn:zone:zone-a",
+  "_oracle": { "didResolvable": true, "signaturesValid": true, "delegationExpired": false, "chainInvariantViolated": true }
+}

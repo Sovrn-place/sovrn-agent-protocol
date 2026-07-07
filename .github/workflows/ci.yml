@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  conformance-and-tests:
+    name: Conformance + tests + typecheck
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: reference-implementations/mcp-server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: reference-implementations/mcp-server/package-lock.json
+      - run: npm ci
+      - name: Typecheck (engine + server)
+        run: npm run typecheck
+      - name: Typecheck (conformance parity pins)
+        run: npm run typecheck:conformance
+      - name: Conformance suite (40 fixtures, exact cited rules + differential)
+        run: npm run conformance
+      - name: Unit tests (real crypto vectors)
+        run: npm test
+
+  opacity:
+    name: Public-safe opacity check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Opacity pattern-class check
+        run: node scripts/opacity-check.mjs

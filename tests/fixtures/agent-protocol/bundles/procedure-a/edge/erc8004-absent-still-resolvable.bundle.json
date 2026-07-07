@@ -1,0 +1,17 @@
+{
+  "_comment": "EDGE / Procedure A. ERC-8004 RECOMMENDED-not-REQUIRED (JC4): the agent has no on-chain ERC-8004 registration, yet resolves fully via DNS + DID Document. A1 succeeds with didResolvable=true despite the absent on-chain entry. Expected ACCEPT mode=PLAY.",
+  "credential": {
+    "@context": ["https://www.w3.org/ns/credentials/v2", "https://schema.sovrn.place/agent/v1"],
+    "id": "urn:uuid:00000000-0000-0000-0000-0000000000af",
+    "type": ["VerifiableCredential", "SovrnAgentCredential"],
+    "issuer": { "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000" },
+    "validFrom": "2026-04-26T00:00:00Z",
+    "credentialSubject": {
+      "id": "did:sovrn:agent:550e8400-e29b-41d4-a716-446655440000",
+      "principalDID": "did:sovrn:citizen:7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "issuanceMethod": "SELF_ATTESTED"
+    },
+    "proof": [{ "type": "DataIntegrityProof", "cryptosuite": "eddsa-jcs-2022", "proofValue": "z..." }]
+  },
+  "_oracle": { "didResolvable": true, "signaturesValid": true, "credentialRevoked": false, "mode": "PLAY" }
+}

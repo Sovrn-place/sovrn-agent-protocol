@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.sovrn.place/agent/v1/delegation-token.json",
+  "title": "SovrnDelegationToken",
+  "description": "UCAN 1.0 profile for human-to-agent delegation in the Sovrn protocol. JWT-based capability token with attenuation. Play Mode schema (open, Apache 2.0).",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "status": "DRAFT",
+  "type": "object",
+  "required": ["header", "payload"],
+  "properties": {
+    "header": {
+      "type": "object",
+      "required": ["alg", "typ", "ucv"],
+      "properties": {
+        "alg": {
+          "type": "string",
+          "description": "Signature algorithm (EdDSA recommended)"
+        },
+        "typ": {
+          "type": "string",
+          "const": "JWT"
+        },
+        "ucv": {
+          "type": "string",
+          "description": "UCAN version (1.0.0 for this profile)"
+        }
+      }
+    },
+    "payload": {
+      "type": "object",
+      "required": ["iss", "aud", "exp", "att"],
+      "properties": {
+        "iss": {
+          "type": "string",
+          "description": "Issuer DID (the human principal or delegating agent)"
+        },
+        "aud": {
+          "type": "string",
+          "description": "Audience DID (the agent receiving delegation)"
+        },
+        "sub": {
+          "type": "string",
+          "description": "Subject DID (the principal on whose behalf the agent acts)"
+        },
+        "nbf": {
+          "type": "integer",
+          "description": "Not before (Unix timestamp)"
+        },
+        "exp": {
+          "type": "integer",
+          "description": "Expiration (Unix timestamp)"
+        },
+        "att": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["with", "can"],
+            "properties": {
+              "with": {
+                "type": "string",
+                "description": "Resource URI (e.g., sovrn:zone:zone-a, sovrn:wallet:principal). The sovrn: scheme is a Sovrn protocol extension."
+              },
+              "can": {
+                "type": "string",
+                "description": "Action in namespace/ability format (e.g., residency/apply, documents/manage)"
+              },
+              "constraints": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Action-specific constraints (maxValue, requiresApproval, etc.)"
+              }
+            }
+          },
+          "description": "Attenuation array. Each entry scopes a capability. Child delegations must be a subset of parent capabilities."
+        },
+        "fct": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Facts. Sovrn-specific metadata about the delegation context.",
+          "properties": {
+            "sovrnDelegationType": {
+              "type": "string",
+              "description": "Delegation type identifier (e.g., AGENT_AUTHORITY)"
+            },
+            "principalIdentityLevel": {
+              "type": "string",
+              "description": "Opaque principal identity level identifier"
+            },
+            "principalSiName": {
+              "type": "string",
+              "description": "Principal's .si name"
+            },
+            "delegationPurpose": {
+              "type": "string",
+              "description": "Human-readable delegation purpose"
+            }
+          }
+        },
+        "prf": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Proof chain. Array of parent UCAN token CIDs or hashes. Empty for root delegation from principal."
+        }
+      }
+    }
+  }
+}
